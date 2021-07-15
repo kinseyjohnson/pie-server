@@ -4,6 +4,8 @@ const app = Express() //Top level function allowing access to all of its methods
 
 const dbConnection = require("./db")
 const controllers = require("./controllers")
+const middlewares = require("./middleware")
+
 
 dbConnection.authenticate()
     .then(() => dbConnection.sync()) //.sync() syncs models or schemas to database
@@ -17,6 +19,7 @@ dbConnection.authenticate()
     })
 
 app.use(Express.json())
-app.use(controllers.piecontroller)
+app.use(middlewares.CORS)
+app.use("/pies", controllers.piecontroller)
 app.use("/user", controllers.usercontroller)
 // app.use("/user", controllers.usercontroller)
